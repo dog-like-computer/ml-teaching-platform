@@ -1,0 +1,65 @@
+CREATE DATABASE IF NOT EXISTS Graduation_242821513 DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;
+
+USE Graduation_242821513;
+
+CREATE TABLE IF NOT EXISTS user_db(
+id VARCHAR(7) NOT NULL,
+username TEXT NOT NULL,
+phone VARCHAR(11),
+password TEXT NOT NULL,
+identity TEXT NOT NULL,
+is_delete TINYINT NOT NULL DEFAULT 0,
+head_url VARCHAR(255) DEFAULT 'primary.png'
+);
+
+CREATE TABLE IF NOT EXISTS sign_db(
+user_id VARCHAR(7) NOT NULL,
+sign_date DATE NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS vip_db(
+user_id VARCHAR(7) NOT NULL,
+level VARCHAR(1) NOT NULL DEFAULT 0,
+start_time DATETIME NOT NULL,
+end_time DATETIME NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS sklearn_db(
+id VARCHAR(10) NOT NULL,
+user_id VARCHAR(7) NOT NULL,
+data_id TEXT NOT NULL,
+use_model TEXT NOT NULL,
+types TEXT NOT NULL,
+model_name TEXT NOT NULL,
+model_condition TEXT,
+token TEXT NOT NULL,
+base_path TEXT NOT NULL,
+hyper TEXT NOT NULL,
+evaluation TEXT NOT NULL,
+url_path TEXT NOT NULL,
+open_bool TINYINT NOT NULL DEFAULT 1
+);
+
+CREATE TABLE IF NOT EXISTS data_db(
+user_id VARCHAR(7) NOT NULL,
+update_time DATETIME NOT NULL,
+saving TEXT NOT NULL,
+sheet_name TEXT NOT NULL,
+types TEXT NOT NULL,
+though_work TEXT,
+vectorization VARCHAR(15),
+normalization VARCHAR(15)
+);
+
+CREATE TABLE IF NOT EXISTS sdk_relationship(
+model_id 	VARCHAR(10),
+sdk_file TEXT
+);
+
+CREATE TABLE IF NOT EXISTS monitor_db(
+user_id VARCHAR(7) NOT NULL,
+mac TEXT NOT NULL,
+content TEXT
+);
+
+

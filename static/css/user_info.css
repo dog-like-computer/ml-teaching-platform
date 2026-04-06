@@ -1,0 +1,245 @@
+/* Global style reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Arial", sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    padding: 20px;
+}
+
+/* Container style */
+.user-info-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Page header */
+.page-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.page-header h1 {
+    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.loading {
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+/* Info display section */
+.display-section {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 50px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.avatar-container {
+    text-align: center;
+}
+
+#display-head-url {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+#display-head-url:hover {
+    transform: scale(1.05);
+}
+
+.avatar-tip {
+    margin-top: 8px;
+    color: #95a5a6;
+    font-size: 12px;
+}
+
+.info-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.info-item .label {
+    width: 100px;
+    color: #7f8c8d;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.info-item span {
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+.info-item .non-editable {
+    pointer-events: none;
+    user-select: none;
+}
+
+.avatar-upload-button {
+    background-color: #f8f9fa;
+    color: #3498db;
+    border: 1px solid #3498db;
+    height: 45px;
+    padding: 0 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.avatar-upload-button:hover {
+    background-color: #3498db;
+    color: #fff;
+}
+
+/* Update section */
+.update-section {
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.update-section h2 {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Form group style */
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.form-group label {
+    width: 120px;
+    color: #7f8c8d;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.form-group input {
+    flex: 1;
+    height: 45px;
+    padding: 0 15px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.1);
+}
+
+/* Button group */
+.btn-group {
+    margin-left: 120px;
+    display: flex;
+    gap: 15px;
+}
+
+button {
+    height: 45px;
+    padding: 0 25px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+#update-btn {
+    background-color: #3498db;
+    color: #fff;
+}
+
+#update-btn:hover {
+    background-color: #2980b9;
+}
+
+#reset-btn {
+    background-color: #ecf0f1;
+    color: #7f8c8d;
+}
+
+#reset-btn:hover {
+    background-color: #dce1e3;
+}
+
+#back-btn {
+    background-color: #95a5a6;
+    color: #fff;
+}
+
+#back-btn:hover {
+    background-color: #7f8c8d;
+}
+
+/* Tips message style */
+.tips {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    display: none;
+}
+
+.tips.success {
+    background-color: #e8f5e9;
+    color: #2ecc71;
+    display: block;
+}
+
+.tips.error {
+    background-color: #ffebee;
+    color: #e74c3c;
+    display: block;
+}
+
+/* Hide elements */
+.hidden {
+    display: none !important;
+}

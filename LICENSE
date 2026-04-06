@@ -1,46 +1,29 @@
-# Custom Open Source License Agreement
-Copyright (c) 2026 a-love-study-student
+Copyright (c) 2026 Jiang Lei
+Alumni: Shaoxing Vocational & Technical College, College of Science and Technology, Ningbo University
+1. Scope of Use
+This project, including all source code, documentation, and derivative works, is open-sourced exclusively for learning, research, and educational purposes.Any commercial use is strictly prohibited, including but not limited to:
+Commercial product development and commercial service provision
+Paid training, consulting, or any profit-generating activities
+Commercial derivative works or redistribution for commercial gain
+2. Educational Usage Guidelines
+Use in teaching, courses, or academic presentations is permitted, but direct full copying and verbatim explanation of the entire project are not recommended.Users are encouraged to add their own insights, cases, supplementary content, and personal elements to form independent teaching materials.
+3. Copyright Retention
+This copyright notice and license terms must be included in all copies, modifications, or substantial portions of the Software.No one may remove or alter this license statement without the author's written permission.
+4. Disclaimer
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-## 1. Scope of Use
-This project, including all source code, documentation, and derivative works, is **open-sourced exclusively for learning, research, and educational purposes**.
-**Any commercial use is strictly prohibited**, including but not limited to:
-- Commercial product development, commercial service provision
-- Paid training, consulting, or any profit-generating activities
-- Commercial derivative works, redistribution for commercial gain
-
-## 2. Educational Usage Guidelines
-Use in teaching, courses, or academic presentations is permitted, but **direct full copying and verbatim explanation of the entire project are not recommended**.
-Users are encouraged to add their own insights, cases, supplementary content, and personal elements to form independent teaching materials.
-
-## 3. Copyright Retention
-This copyright notice and license terms must be included in all copies, modifications, or substantial portions of the Software.
-No one may remove or alter this license statement without the author's written permission.
-
-## 4. Disclaimer
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
----
-
-# 中文版本（Chinese Version）
-# 自定义开源许可协议
-版权所有 (c) 2026 a-love-study-student
-
-## 1. 使用范围
-本项目包含的所有源代码、文档及衍生作品，**仅开放用于学习、研究与教学用途**。
-**严禁任何形式的商业使用**，包括但不限于：
-- 商业产品开发、商业服务提供
-- 有偿培训、咨询或任何盈利性活动
-- 商业衍生作品、以盈利为目的的二次分发
-
-## 2. 教学使用规范
-允许在教学、课程、学术分享中使用本项目内容，但**不建议直接完整复制、逐字原样讲解整个项目**。
-鼓励使用者加入个人理解、案例、补充内容与个人思考，形成独立的教学内容。
-
-## 3. 版权保留
-本版权声明与许可条款必须完整保留在软件的所有副本、修改版或主要内容中。
-未经作者书面许可，任何人不得删除或修改本许可声明。
-
-## 4. 免责声明
-本软件按「现状」提供，不提供任何明示或暗示的担保，包括但不限于适销性、特定用途适用性及不侵权的保证。
-在任何情况下，作者或版权持有人均不对任何索赔、损害赔偿或其他责任承担责任，无论该责任是基于合同、侵权或其他任何诉由，无论是否因本软件或本软件的使用及其他交易引起。
+中文版本（Chinese Version）
+自定义开源许可协议
+版权所有 (c) 2026 姜雷
+求学经历：绍兴职业技术学院、宁波大学科学技术学院
+1. 使用范围
+本项目包含的所有源代码、文档及衍生作品，仅开放用于学习、研究与教学用途。严禁任何形式的商业使用，包括但不限于：
+商业产品开发、商业服务提供
+有偿培训、咨询或任何盈利性活动
+商业衍生作品、以盈利为目的的二次分发
+2. 教学使用规范
+允许在教学、课程、学术分享中使用本项目内容，但不建议直接完整复制、逐字原样讲解整个项目。鼓励使用者加入个人理解、案例、补充内容与个人思考，形成独立的教学内容。
+3. 版权保留
+本版权声明与许可条款必须完整保留在软件的所有副本、修改版或主要内容中。未经作者书面许可，任何人不得删除或修改本许可声明。
+4. 免责声明
+本软件按「现状」提供，不提供任何明示或暗示的担保，包括但不限于适销性、特定用途适用性及不侵权的保证。在任何情况下，作者或版权持有人均不对任何索赔、损害赔偿或其他责任承担责任，无论该责任是基于合同、侵权或其他任何诉由，无论是否因本软件或本软件的使用及其他交易引起。

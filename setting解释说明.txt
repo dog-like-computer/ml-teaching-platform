@@ -1,0 +1,8 @@
+penetration：内网渗透开关
+Internal：网址
+host：主机地址
+port：端口
+show_in：后端显示传输内容
+show_out：后端显示输出结果
+save_log：保存日志开关
+save_length：保存间隔长度

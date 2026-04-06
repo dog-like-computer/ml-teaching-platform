@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="model.detail.title">Model Detail</title>
+    <link rel="shortcut icon" href="/static/system_pic/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/system_pic/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/static/css/home.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <a href="/home" class="logo" data-i18n="model.detail.title">Model Detail</a>
+        <div class="user-menu-container">
+            <button id="user-menu-btn" class="user-menu-btn">
+                <img id="user-avatar-small" class="user-avatar-small" src="" alt="User Avatar">
+                <span id="user-name-short">--</span>
+            </button>
+            <div id="user-dropdown" class="user-dropdown">
+                <div class="user-dropdown-info">
+                    <p><strong data-i18n="user.menu.id">User ID:</strong> <span id="dropdown-user-id">--</span></p>
+                    <p><strong data-i18n="user.menu.username">Username:</strong> <span id="dropdown-username">--</span></p>
+                    <p><strong data-i18n="user.menu.phone">Phone:</strong> <span id="dropdown-phone">--</span></p>
+                </div>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" id="update-info-btn" data-i18n="user.menu.update">Update Personal Info</button>
+                <button class="dropdown-item" id="logout-btn" data-i18n="user.menu.logout">Logout</button>
+                <button class="dropdown-item danger" id="delete-account-btn" data-i18n="user.menu.delete">Delete Account</button>
+            </div>
+        </div>
+    </header>
+
+
+
+    <div class="main-container">
+        <!-- Model Info Header -->
+        <div class="model-header">
+            <h1 id="model-title" data-i18n="model.detail.name">Model: <span id="model-name">Loading...</span></h1>
+            <div class="model-info">
+                <div class="info-item">
+                    <span class="label" data-i18n="model.detail.type">Model Type:</span>
+                    <span id="model-type" class="value"></span>
+                </div>
+                <div class="info-item">
+                    <span class="label" data-i18n="model.detail.status">Status:</span>
+                    <span id="model-status" class="value"></span>
+                </div>
+                <div class="info-item">
+                    <span class="label" data-i18n="model.detail.open">Open Status:</span>
+                    <label class="switch">
+                        <input type="checkbox" id="open-bool-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="action-btns">
+                <button id="prev-model-btn" class="btn secondary" data-i18n="model.detail.prev">Previous Model</button>
+                <button id="next-model-btn" class="btn secondary" data-i18n="model.detail.next">Next Model</button>
+                <a id="download-sdk" href="" class="btn primary" data-i18n="model.detail.download.sdk">Download SDK</a>
+                <a id="download-vectorization" href="" class="btn secondary" data-i18n="model.detail.download.vectorization">Download Vectorization</a>
+                <a id="download-normalization" href="" class="btn secondary" data-i18n="model.detail.download.normalization">Download Normalization</a>
+                <button id="back-btn" class="btn secondary" data-i18n="data.detail.back">Back to List</button>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading" id="loading" style="display: none; text-align: center; padding: 20px;" data-i18n="model.detail.loading">Loading model details...</div>
+
+        <!-- Model Detail Content -->
+        <div class="model-detail-content">
+            <!-- Train/Test Information -->
+            <div class="card">
+                <h2 data-i18n="model.detail.train.test">Train/Test Information</h2>
+                <div class="train-test-info">
+                    <div class="info-item">
+                        <span class="label" data-i18n="model.detail.train.size">Training Set Size:</span>
+                        <span id="train-size" class="value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label" data-i18n="model.detail.test.size">Test Set Size:</span>
+                        <span id="test-size" class="value"></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label" data-i18n="model.detail.test.ratio">Test Ratio:</span>
+                        <span id="test-ratio" class="value"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hyperparameters -->
+            <div class="card">
+                <h2 data-i18n="model.detail.hyperparams">Hyperparameters</h2>
+                <div id="hyper-params" class="hyper-params-section"></div>
+            </div>
+
+            <!-- Evaluation Metrics -->
+            <div class="card">
+                <h2 data-i18n="model.detail.evaluation">Evaluation Metrics</h2>
+                <div id="evaluation-chart" class="chart-container"></div>
+            </div>
+
+            <!-- Dataset Statistics -->
+            <div class="card">
+                <h2 data-i18n="model.detail.dataset">Dataset Statistics</h2>
+                <div class="dataset-stats">
+                    <div class="form-group">
+                        <label for="column-select" data-i18n="data.detail.columns">Select Column:</label>
+                        <select id="column-select" class="form-control">
+                            <option value="" data-i18n="model.detail.select.column">-- Select Column --</option>
+                        </select>
+                    </div>
+                    <div id="column-stats" class="stats-container"></div>
+                    <div id="column-chart" class="chart-container"></div>
+                </div>
+            </div>
+
+            <!-- Correlation Coefficients -->
+            <div class="card">
+                <h2 data-i18n="model.detail.corr">Correlation Coefficients</h2>
+                <div class="correlation-section">
+                    <div class="form-group">
+                        <label data-i18n="data.detail.select.column">Select Columns:</label>
+                        <div id="corr-columns-container" class="checkbox-group"></div>
+                        <select id="corr-columns-select" class="form-control" multiple style="display: none;"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="corr-type-select" data-i18n="model.detail.select.corr.type">Correlation Type:</label>
+                        <select id="corr-type-select" class="form-control">
+                            <option value="pearson">Pearson</option>
+                            <option value="spearman">Spearman</option>
+                            <option value="kendall">Kendall</option>
+                        </select>
+                    </div>
+                    <button id="calculate-corr" class="btn primary" data-i18n="model.detail.calc.corr">Calculate Correlation</button>
+                    <div id="correlation-chart" class="chart-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize user info and menu
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('DOMContentLoaded triggered');
+            // Load user info
+            const userId = localStorage.getItem('user_id')?.trim();
+            if (!userId || userId === 'null' || userId === 'undefined') {
+                alert('Please login first!');
+                window.location.href = '/static/html/index.html';
+                return;
+            }
+
+            // Fetch user info
+            try {
+                const response = await fetch('/api/search_user_info', {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ user_id: userId }),
+                });
+
+                const data = await response.json();
+                if (![200, 1].includes(data?.status)) throw new Error(`API Error: ${data.status}`);
+
+                const user = data.msg || {};
+                const fullName = user.username || user.name || userId || "User";
+                const shortName = fullName.length > 5 ? `${fullName.substring(0, 5)}...` : fullName;
+                
+                // Mask phone number
+                function maskPhoneNumber(phone) {
+                    if (!phone || phone.length !== 11) return phone || 'N/A';
+                    return phone.replace(/(\d{3})\d{4}(\d{4})/, '$1****$2');
+                }
+                const maskedPhone = maskPhoneNumber(user.phone);
+
+                // Avatar Handling
+                const AVATAR_ROOT_PATH = '/static/user_pic/';
+                let avatarUrl = `${AVATAR_ROOT_PATH}primary.jpg`;
+                if (user.head_url) {
+                    let fileName = user.head_url
+                        .replace('./static/user_pic', '')
+                        .replace('/static/user_pic', '')
+                        .replace('user_pic', '')
+                        .replace(/^\//, '');
+                    if (!fileName.endsWith('.jpg')) fileName = 'primary.jpg';
+                    avatarUrl = `${AVATAR_ROOT_PATH}${fileName}`;
+                }
+
+                // Update UI
+                document.getElementById("user-name-short").innerText = shortName;
+                document.getElementById("dropdown-username").innerText = fullName;
+                document.getElementById("dropdown-user-id").innerText = user.user_id || "";
+                document.getElementById("dropdown-phone").innerText = maskedPhone;
+
+                const avatarElement = document.getElementById("user-avatar-small");
+                avatarElement.src = avatarUrl;
+                avatarElement.onerror = () => {
+                    avatarElement.src = `${AVATAR_ROOT_PATH}primary.jpg`;
+                };
+
+            } catch (err) {
+                console.error("Failed to load user info:", err);
+                document.getElementById("user-name-short").innerText = "User";
+                document.getElementById("user-avatar-small").src = "/static/user_pic/primary.jpg";
+            }
+
+            // Initialize user menu
+            const menuBtn = document.getElementById('user-menu-btn');
+            const dropdown = document.getElementById('user-dropdown');
+
+            menuBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdown.classList.toggle('show');
+            });
+
+            document.addEventListener('click', () => dropdown.classList.remove('show'));
+            dropdown.addEventListener('click', (e) => e.stopPropagation());
+
+            // Menu Actions
+            document.getElementById('update-info-btn').addEventListener('click', () => {
+                window.location.href = '/user_info';
+            });
+
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                localStorage.removeItem('user_id');
+                alert('Logged out successfully!');
+                window.location.href = '/static/html/index.html';
+            });
+
+            document.getElementById('delete-account-btn').addEventListener('click', () => {
+                if (confirm('Are you sure to delete your account? This action cannot be undone!')) {
+                    localStorage.removeItem('user_id');
+                    alert('Account deleted successfully!');
+                    window.location.href = '/static/html/index.html';
+                }
+            });
+
+            // Back to list button
+            document.getElementById('back-btn').addEventListener('click', () => {
+                window.location.href = '/home';
+            });
+        });
+    </script>
+    <script src="/static/javascript/i18n.js"></script>
+    <script src="/static/javascript/detail_model.js"></script>
+</body>
+</html>

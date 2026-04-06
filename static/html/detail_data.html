@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="data.detail.title">Dataset Detail</title>
+    <link rel="shortcut icon" href="/static/system_pic/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/system_pic/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../css/detail_data.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header: Dataset Info + Action Buttons -->
+        <div class="header">
+            <h1 id="dataset-title" data-i18n="data.detail.dataset">Dataset: <span id="data-id"></span></h1>
+            <div class="sheet-selector" style="margin-bottom: 10px;">
+                <label for="sheet-select" data-i18n="data.detail.sheet">Worksheet: </label>
+                <select id="sheet-select">
+                    <option value="train" data-i18n="data.detail.train">Train</option>
+                    <option value="test" data-i18n="data.detail.test">Test</option>
+                </select>
+            </div>
+            <div class="action-btns">
+                <!-- 数据预处理功能组 -->
+                <div class="func-group preprocess-group">
+                    <select id="preprocess-select" disabled>
+                        <option value="" data-i18n="data.detail.preprocess">Data Preprocess</option>
+                        <option value="duplicate" data-i18n="data.detail.remove.duplicates">Remove Duplicates</option>
+                        <option value="fill_na" data-i18n="data.detail.fill.missing">Fill Missing Values</option>
+                        <option value="outlier" data-i18n="data.detail.remove.outliers">Remove Outliers</option>
+                    </select>
+                    <button id="apply-preprocess-btn" disabled data-i18n="data.detail.apply">Apply</button>
+                </div>
+
+                <!-- 归一化功能组 -->
+                <div class="func-group">
+                    <select id="normalization-select" disabled>
+                        <option value="" data-i18n="data.detail.normalization">Normalization</option>
+                    </select>
+                    <button id="apply-normalize-btn" disabled data-i18n="data.detail.apply">Apply</button>
+                </div>
+
+                <!-- 向量化功能组 -->
+                <div class="func-group vector-group">
+                    <select id="vectorization-select" disabled>
+                        <option value="" data-i18n="data.detail.vectorization">Vectorization</option>
+                    </select>
+                    <input type="text" id="vectorization-unit" placeholder="Units (comma separated)"
+                           style="border-radius: 0; border: 1px solid #ddd; padding: 8px; font-size: 14px; width: 150px;">
+                    <button id="apply-vectorize-btn" disabled data-i18n="data.detail.apply">Apply</button>
+                </div>
+
+                <!-- 统一的列选择框 -->
+                <div class="column-selector" style="position: relative; display: inline-block;">
+                    <button type="button" id="normalization-columns-btn" style="border-radius: 0; border: 1px solid #ddd; padding: 8px; font-size: 14px; width: 200px; text-align: left; background-color: white;" data-i18n="data.detail.select.column">Select columns</button>
+                    <div id="normalization-columns-dropdown" class="columns-dropdown" style="display: none; position: absolute; top: 100%; left: 0; width: 250px; max-height: 200px; overflow-y: auto; border: 1px solid #ddd; background-color: white; z-index: 1000;">
+                        <div style="padding: 8px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between;">
+                            <span data-i18n="data.detail.select.column">Select columns:</span>
+                            <div>
+                                <button type="button" class="select-all-btn" data-target="normalization" data-i18n="data.detail.select.all">Select All</button>
+                                <button type="button" class="deselect-all-btn" data-target="normalization" data-i18n="data.detail.deselect.all">Deselect All</button>
+                            </div>
+                        </div>
+                        <div id="normalization-columns-list"></div>
+                    </div>
+                </div>
+
+                <!-- 数据划分功能组 -->
+                <div class="func-group">
+                    <button id="split-toggle-btn" class="split-toggle-btn" data-i18n="data.detail.split">Train Test Split</button>
+                    <button id="apply-split-btn" disabled data-i18n="data.detail.apply">Apply</button>
+                </div>
+
+                <button id="save-btn" data-i18n="data.detail.save">Save Changes</button>
+                <button id="download-btn" data-i18n="data.detail.download">Download Data</button>
+                <button id="back-btn" data-i18n="data.detail.back">Back to List</button>
+            </div>
+        </div>
+
+        <!-- 预处理参数配置面板 -->
+        <div class="preprocess-config" id="preprocess-config" style="display: none;">
+            <!-- <h3 id="preprocess-config-title">Configure: </h3> -->
+            <div class="config-content">
+                <!-- 去重配置 -->
+                <div id="duplicate-config" class="config-panel">
+                    <!-- <label>Columns to check duplicates (comma separated):</label>
+                    <input type="text" id="duplicate-subset" placeholder="e.g. name,age or leave empty for all columns"> -->
+                </div>
+
+                <!-- 填充空值配置 -->
+                <div id="fillna-config" class="config-panel">
+                    <label>Fill methods (per column, comma separated):</label>
+                    <input type="text" id="fillna-methods" placeholder="0,mean,median,mode,ffill,bfill (e.g. 0,mean,mode)">
+                    <p class="config-tip">Tips: 0=fill with 0, mean=average, median=median, mode=most frequent, ffill=forward fill, bfill=backward fill</p>
+                </div>
+
+                <!-- 异常值处理配置 -->
+                <div id="outlier-config" class="config-panel">
+                    <label>Outlier detection method:</label>
+                    <select id="outlier-methods">
+                        <option value="multiple">3σ Rule (Multiple)</option>
+                        <option value="iqr">IQR Method</option>
+                    </select>
+                    <label>Multiple (only for 3σ):</label>
+                    <input type="number" id="outlier-multiple" value="3" min="1" step="0.5">
+                </div>
+            </div>
+        </div>
+
+        <!-- 数据划分配置面板 -->
+        <div class="preprocess-config" id="split-config" style="display: none;">
+            <h3 id="split-config-title">Configure: Train Test Split</h3>
+            <div class="config-content">
+                <div id="split-config-panel" class="config-panel">
+                    <div class="form-row">
+                        <label>Test Size (0.1-0.9):</label>
+                        <input type="number" id="split-test-size" value="0.2" min="0.1" max="0.9" step="0.1">
+                    </div>
+                    
+                    <div class="filter-section">
+                        <h4>Independent Variables (X Columns)</h4>
+                        <div class="checkbox-group">
+                            <div class="checkbox-header">
+                                <label>Select X Columns:</label>
+                                <div class="checkbox-actions">
+                                    <button type="button" id="select-all-x" class="checkbox-action-btn">Select All</button>
+                                    <button type="button" id="deselect-all-x" class="checkbox-action-btn">Deselect All</button>
+                                </div>
+                            </div>
+                            <div id="x-columns-list" class="checkbox-list">
+                                <!-- X列复选框将通过JavaScript动态添加 -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-section">
+                        <h4>Dependent Variables (Y Columns)</h4>
+                        <div class="checkbox-group">
+                            <div class="checkbox-header">
+                                <label>Select Y Columns:</label>
+                                <div class="checkbox-actions">
+                                    <button type="button" id="select-all-y" class="checkbox-action-btn">Select All</button>
+                                    <button type="button" id="deselect-all-y" class="checkbox-action-btn">Deselect All</button>
+                                </div>
+                            </div>
+                            <div id="y-columns-list" class="checkbox-list">
+                                <!-- Y列复选框将通过JavaScript动态添加 -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="config-tip">Tips: If X and Y columns are not specified, all columns will be used for splitting.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 实时筛选控件 -->
+        <div class="filter-container advanced-filter">
+            <h3>Advanced Filter (Real-time)</h3>
+
+            <!-- 筛选条件组1 -->
+            <div class="filter-group filter-condition active" data-index="0">
+                <label>Condition 1:</label>
+                <select class="filter-column">
+                    <option value="all">All Columns</option>
+                </select>
+                <select class="filter-operator">
+                    <option value="contains">Contains</option>
+                    <option value="equals">Equals</option>
+                    <option value="greater">Greater Than (>)</option>
+                    <option value="less">Less Than (<)</option>
+                    <option value="greater_eq">≥</option>
+                    <option value="less_eq">≤</option>
+                </select>
+                <input type="text" class="filter-value" placeholder="Enter value...">
+            </div>
+
+            <!-- 筛选条件组2 -->
+            <div class="filter-group filter-condition" data-index="1">
+                <label>Condition 2:</label>
+                <select class="filter-column">
+                    <option value="all">All Columns</option>
+                </select>
+                <select class="filter-operator">
+                    <option value="contains">Contains</option>
+                    <option value="equals">Equals</option>
+                    <option value="greater">Greater Than (>)</option>
+                    <option value="less">Less Than (<)</option>
+                    <option value="greater_eq">≥</option>
+                    <option value="less_eq">≤</option>
+                </select>
+                <input type="text" class="filter-value" placeholder="Enter value...">
+                <button class="remove-condition" disabled>×</button>
+            </div>
+
+            <!-- 筛选条件组3 -->
+            <div class="filter-group filter-condition" data-index="2">
+                <label>Condition 3:</label>
+                <select class="filter-column">
+                    <option value="all">All Columns</option>
+                </select>
+                <select class="filter-operator">
+                    <option value="contains">Contains</option>
+                    <option value="equals">Equals</option>
+                    <option value="greater">Greater Than (>)</option>
+                    <option value="less">Less Than (<)</option>
+                    <option value="greater_eq">≥</option>
+                    <option value="less_eq">≤</option>
+                </select>
+                <input type="text" class="filter-value" placeholder="Enter value...">
+                <button class="remove-condition" disabled>×</button>
+            </div>
+
+            <!-- 筛选操作按钮 -->
+            <div class="filter-actions">
+                <button id="add-condition">Add Condition</button>
+                <button id="reset-filter">Reset Filter</button>
+                <span>Filter updates in real-time</span>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="loading" id="loading" style="display: none; text-align: center; padding: 20px;">
+            Loading data...
+        </div>
+
+        <div class="loading" id="func-loading" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.7); z-index: 999; align-items: center; justify-content: center;">
+            <div style="font-size: 18px; color: #4299e1;">Processing...</div>
+        </div>
+
+        <!-- Data Table Area -->
+        <div class="table-container">
+            <div class="table-wrapper">
+                <table id="data-table">
+                    <thead id="table-header"></thead>
+                    <tbody id="table-body"></tbody>
+                </table>
+            </div>
+
+            <!-- 分页控件 -->
+            <div class="pagination-container">
+                <div class="pagination-info">
+                    <span>Total: <span id="total-rows">0</span> rows (<span id="filtered-rows">0</span> filtered)</span>
+                    <select id="page-size-select">
+                        <option value="10">10 rows/page</option>
+                        <option value="20">20 rows/page</option>
+                        <option value="50">50 rows/page</option>
+                        <option value="100">100 rows/page</option>
+                    </select>
+                </div>
+                <div class="pagination-controls">
+                    <button id="prev-page" disabled>Previous</button>
+                    <span id="page-info">Page <span id="current-page">1</span> of <span id="total-pages">1</span></span>
+                    <button id="next-page" disabled>Next</button>
+                </div>
+            </div>
+        </div>
+        <!-- 保存配置弹窗 -->
+    <div id="save-config-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Save Configuration</h2>
+            <div class="modal-form">
+                <div class="form-group">
+                    <label for="pattern-select">File Pattern:</label>
+                    <select id="pattern-select">
+                        <option value="csv">CSV</option>
+                        <option value="xlsx">XLSX</option>
+                        <option value="xls">XLS</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="encoding-input">Encoding:</label>
+                    <input type="text" id="encoding-input" placeholder="e.g. utf-8, gbk" value="utf-8">
+                </div>
+                <div class="form-group">
+                    <label for="sheet-name-input">Sheet Name:</label>
+                    <input type="text" id="sheet-name-input" placeholder="e.g. Sheet1 (default: original)" value="Sheet1">
+                </div>
+                <div class="form-group">
+                    <label for="types-select">Data Type:</label>
+                    <select id="types-select">
+                        <option value="">Same as original</option>
+                        <option value="Regression">Regression</option>
+                        <option value="Clustering">Clustering</option>
+                        <option value="Classification">Classification</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button id="confirm-save-btn" class="btn-primary">Confirm Save</button>
+                    <button id="cancel-save-btn" class="btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- Operation Tips -->
+        <div class="tips">
+            <p>💡 Double-click cell to edit (Press Enter or click outside to confirm) | Filter updates in real-time</p>
+            <p>💡 For remove_unit vectorization: Enter units separated by commas (e.g. kg,cm,℃,元)</p>
+        </div>
+    </div>
+
+
+    <script src="../javascript/i18n.js"></script>
+    <script src="../javascript/detail_data.js"></script>
+</body>
+</html>

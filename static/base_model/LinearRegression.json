@@ -1,0 +1,33 @@
+{
+    "model": "LinearRegression",
+    "fit_intercept": {
+        "default": true,
+        "options": [true, false],
+        "type": "bool"
+    },
+    "solver": {
+        "default": "normal_eq",
+        "options": ["normal_eq", "sgd"],
+        "type": "str"
+    },
+    "alpha": {
+        "default": 0.0,
+        "range": [0.0, 10.0],
+        "type": "float"
+    },
+    "max_iter": {
+        "default": 1000,
+        "range": [100, 10000],
+        "type": "int"
+    },
+    "tol": {
+        "default": 0.001,
+        "range": [1e-6, 1e-2],
+        "type": "float"
+    },
+    "learning_rate": {
+        "default": 0.01,
+        "range": [1e-5, 1.0],
+        "type": "float"
+    }
+}

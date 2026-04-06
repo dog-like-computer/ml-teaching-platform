@@ -1,0 +1,9 @@
+{
+    "model": "KMeans",
+    "n_clusters": {"default":8,"range":[2,20],"type":"int"},
+    "init": {"default":"k-means++","options":["random","k-means++"],"type":"str"},
+    "max_iter": {"default":300,"range":[50,1000],"type":"int"},
+    "tol": {"default":1e-4,"range":[1e-6,1e-2],"type":"float"},
+    "metric": {"default":"euclidean","options":["euclidean","manhattan","cosine"],"type":"str"},
+    "random_state": {"default":null,"type":"int|null"}
+}

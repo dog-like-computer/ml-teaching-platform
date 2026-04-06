@@ -1,0 +1,6 @@
+Min_Max
+Max
+Standard
+Mean
+Max_Abs
+robust_standardize

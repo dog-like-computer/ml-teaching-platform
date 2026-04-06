@@ -1,0 +1,6 @@
+SOM
+LVQ
+KMeans
+GaussianMixture
+DBSCAN
+AgglomerativeClustering

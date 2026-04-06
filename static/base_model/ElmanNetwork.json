@@ -1,0 +1,7 @@
+{
+  "model": "ElmanNetwork",
+  "hidden_size": {"default":50,"range":[10,200],"type":"int"},
+  "learning_rate": {"default":0.01,"range":[1e-4,0.1],"type":"float"},
+  "max_iter": {"default":200,"range":[50,1000],"type":"int"},
+  "random_state": {"default":null,"type":"int|null"}
+}

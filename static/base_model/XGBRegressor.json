@@ -1,0 +1,50 @@
+{
+    "model": "XGBRegressor",
+    "n_estimators": {
+        "default": 100,
+        "range": [50, 500],
+        "type": "int",
+        "note": "XGBoost树的数量，越多效果越好但训练越慢"
+    },
+    "max_depth": {
+        "default": 3,
+        "range": [1, 10],
+        "type": "int",
+        "note": "单棵树最大深度，控制过拟合（深度越大越易过拟合）"
+    },
+    "learning_rate": {
+        "default": 0.1,
+        "range": [0.01, 0.3],
+        "type": "float",
+        "note": "学习率（步长），越小越稳定但需要更多树"
+    },
+    "reg_lambda": {
+        "default": 1.0,
+        "range": [0.0, 10.0],
+        "type": "float",
+        "note": "L2正则（权重衰减），越大越防过拟合"
+    },
+    "reg_alpha": {
+        "default": 0.0,
+        "range": [0.0, 10.0],
+        "type": "float",
+        "note": "L1正则，越大越易做特征选择（系数变0）"
+    },
+    "objective": {
+        "default": "reg:squarederror",
+        "options": ["reg:squarederror"],
+        "type": "str",
+        "note": "目标函数：reg:squarederror（平方损失回归）"
+    },
+    "random_state": {
+        "default": null,
+        "type": "int or null",
+        "note": "随机种子"
+    },
+    "verbose": {
+        "default": false,
+        "options": [true, false],
+        "type": "bool",
+        "note": "是否打印训练进度"
+    }
+}

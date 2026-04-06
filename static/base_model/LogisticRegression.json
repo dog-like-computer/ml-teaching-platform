@@ -1,0 +1,48 @@
+{
+    "model": "LogisticRegression",
+    "penalty": {
+        "default": "l2",
+        "options": ["l1", "l2", "elasticnet", "none"],
+        "type": "str"
+    },
+    "C": {
+        "default": 1.0,
+        "range": [0.01, 10.0],
+        "type": "float"
+    },
+    "fit_intercept": {
+        "default": true,
+        "options": [true, false],
+        "type": "bool"
+    },
+    "solver": {
+        "default": "sgd",
+        "options": ["sgd"],
+        "type": "str"
+    },
+    "max_iter": {
+        "default": 1000,
+        "range": [100, 10000],
+        "type": "int"
+    },
+    "tol": {
+        "default": 0.0001,
+        "range": [1e-6, 1e-2],
+        "type": "float"
+    },
+    "random_state": {
+        "default": null,
+        "type": "int or null"
+    },
+    "copy_X": {
+        "default": true,
+        "options": [true, false],
+        "type": "bool"
+    },
+    "l1_ratio": {
+        "default": null,
+        "range": [0.0, 1.0],
+        "type": "float or null",
+        "note": "仅当penalty='elasticnet'时有效"
+    }
+}

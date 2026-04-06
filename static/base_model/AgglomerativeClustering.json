@@ -1,0 +1,7 @@
+{
+    "model": "AgglomerativeClustering",
+    "n_clusters": {"default":2,"range":[2,20],"type":"int"},
+    "linkage": {"default":"ward","options":["ward","single","complete","average"],"type":"str"},
+    "metric": {"default":"euclidean","options":["euclidean","manhattan","cosine"],"type":"str"},
+    "random_state": {"default":null,"type":"int|null"}
+}

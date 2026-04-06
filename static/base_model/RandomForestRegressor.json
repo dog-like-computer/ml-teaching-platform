@@ -1,0 +1,56 @@
+{
+    "model": "RandomForestRegressor",
+    "n_estimators": {
+        "default": 100,
+        "range": [10, 500],
+        "type": "int",
+        "note": "森林中决策树的数量，越多效果越好但训练越慢"
+    },
+    "criterion": {
+        "default": "mse",
+        "options": ["mse", "mae"],
+        "type": "str",
+        "note": "分裂准则：mse（均方误差）、mae（平均绝对误差）"
+    },
+    "max_depth": {
+        "default": null,
+        "range": [1, 50],
+        "type": "int or null",
+        "note": "单棵树最大深度，null表示不限制（深度越大越易过拟合）"
+    },
+    "min_samples_split": {
+        "default": 2,
+        "range": [2, 20],
+        "type": "int",
+        "note": "分割内部节点所需的最小样本数"
+    },
+    "min_samples_leaf": {
+        "default": 1,
+        "range": [1, 20],
+        "type": "int",
+        "note": "叶节点所需的最小样本数"
+    },
+    "max_features": {
+        "default": "sqrt",
+        "options": ["sqrt", "log2", "None"],
+        "type": "str",
+        "note": "每棵树分裂时考虑的最大特征数：sqrt（平方根）、log2（对数）、None（全部）"
+    },
+    "bootstrap": {
+        "default": true,
+        "options": [true, false],
+        "type": "bool",
+        "note": "是否使用bootstrap采样（有放回抽样）"
+    },
+    "random_state": {
+        "default": null,
+        "type": "int or null",
+        "note": "随机种子"
+    },
+    "verbose": {
+        "default": false,
+        "options": [true, false],
+        "type": "bool",
+        "note": "是否打印训练进度"
+    }
+}

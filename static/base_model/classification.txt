@@ -1,0 +1,12 @@
+XGBClassifier
+SVC
+RBFClassifier
+MultinomialNB
+MLPClassifier
+LogisticRegression
+LDA
+GaussianNB
+DecisionTreeClassifier
+BernoulliNB
+RandomForestClassifier
+AdaBoostClassifier

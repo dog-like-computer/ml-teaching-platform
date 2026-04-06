@@ -1,0 +1,8 @@
+{
+  "model": "BoltzmannMachine",
+  "hidden_size": {"default":64,"range":[16,256],"type":"int"},
+  "learning_rate": {"default":0.01,"range":[1e-4,0.1],"type":"float"},
+  "max_iter": {"default":100,"range":[50,500],"type":"int"},
+  "beta": {"default":1.0,"range":[0.1,5.0],"type":"float"},
+  "random_state": {"default":null,"type":"int|null"}
+}

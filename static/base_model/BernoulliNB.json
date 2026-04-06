@@ -1,0 +1,27 @@
+{
+    "model": "BernoulliNB",
+    "alpha": {
+        "default": 1.0,
+        "range": [0.0, 10.0],
+        "type": "float",
+        "note": "拉普拉斯/利德斯通平滑参数：alpha=0无平滑（易出现0概率），alpha=1为拉普拉斯平滑（默认）"
+    },
+    "binarize": {
+        "default": 0.0,
+        "options": [null],
+        "range": [-1.0, 10.0],
+        "type": "float or null",
+        "note": "特征二值化阈值：None表示输入已为二元特征（0/1）；否则将X>binarize设为1，其余为0"
+    },
+    "fit_prior": {
+        "default": true,
+        "options": [true, false],
+        "type": "bool",
+        "note": "是否从训练数据估计类别先验概率；false则使用均匀先验（各类别概率相等）"
+    },
+    "class_prior": {
+        "default": null,
+        "type": "array or null",
+        "note": "手动指定的类别先验概率，仅fit_prior=True时有效，长度需与类别数一致"
+    }
+}

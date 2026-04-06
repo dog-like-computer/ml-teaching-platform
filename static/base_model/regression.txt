@@ -1,0 +1,11 @@
+XGBRegressor
+SVR
+Ridge
+MLPRegressor
+LinearRegression
+DecisionTreeRegressor
+ElmanNetwork
+CascadeCorrelation
+BoltzmannMachine
+RandomForestRegressor
+AdaBoostRegressor

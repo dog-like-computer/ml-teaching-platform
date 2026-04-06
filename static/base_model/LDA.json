@@ -1,0 +1,39 @@
+{
+    "model": "LDA",
+    "n_components": {
+        "default": null,
+        "type": "int or null",
+        "note": "自动取 min(类别数-1, 特征数)"
+    },
+    "solver": {
+        "default": "svd",
+        "options": ["svd", "eigen"],
+        "type": "str"
+    },
+    "shrinkage": {
+        "default": null,
+        "options": ["auto", null],
+        "range": [0.0, 1.0],
+        "type": "float or 'auto' or null",
+        "note": "0表示无收缩，0<值<=1为收缩强度，'auto'自动选择"
+    },
+    "priors": {
+        "default": null,
+        "type": "array or null",
+        "note": "长度需与类别数一致"
+    },
+    "store_covariance": {
+        "default": false,
+        "options": [true, false],
+        "type": "bool"
+    },
+    "tol": {
+        "default": 0.0001,
+        "range": [1e-6, 1e-2],
+        "type": "float"
+    },
+    "covariance_estimator": {
+        "default": null,
+        "type": "estimator or null"
+    }
+}

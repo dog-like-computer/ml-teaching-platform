@@ -1,0 +1,140 @@
+{
+    "model": "MLPClassifier",
+    "hidden_layer_sizes": {
+        "default": [100],
+        "type": "tuple of int",
+        "note": "隐藏层神经元数量，如(50, 20)表示2层隐藏层，分别50、20个神经元"
+    },
+    "activation": {
+        "default": "relu",
+        "options": ["sigmoid", "relu", "tanh"],
+        "type": "str",
+        "note": "隐藏层激活函数（神经元模型）"
+    },
+    "solver": {
+        "default": "sgd",
+        "options": ["sgd", "adam"],
+        "type": "str",
+        "note": "优化器（梯度下降/Adam）"
+    },
+    "alpha": {
+        "default": 0.0001,
+        "range": [1e-6, 1e-2],
+        "type": "float",
+        "note": "L2正则化强度"
+    },
+    "batch_size": {
+        "default": "auto",
+        "options": ["auto"],
+        "range": [1, 1000],
+        "type": "str or int",
+        "note": "批大小，auto为min(200, 样本数)"
+    },
+    "learning_rate": {
+        "default": "constant",
+        "options": ["constant", "invscaling", "adaptive"],
+        "type": "str",
+        "note": "学习率策略"
+    },
+    "learning_rate_init": {
+        "default": 0.001,
+        "range": [1e-5, 0.1],
+        "type": "float",
+        "note": "初始学习率"
+    },
+    "power_t": {
+        "default": 0.5,
+        "range": [0.1, 1.0],
+        "type": "float",
+        "note": "invscaling学习率衰减指数"
+    },
+    "max_iter": {
+        "default": 200,
+        "range": [50, 1000],
+        "type": "int",
+        "note": "最大迭代次数"
+    },
+    "shuffle": {
+        "default": true,
+        "options": [true, false],
+        "type": "bool",
+        "note": "每次迭代是否打乱数据"
+    },
+    "random_state": {
+        "default": null,
+        "type": "int or null",
+        "note": "随机种子"
+    },
+    "tol": {
+        "default": 0.0001,
+        "range": [1e-6, 1e-2],
+        "type": "float",
+        "note": "收敛阈值"
+    },
+    "verbose": {
+        "default": false,
+        "options": [true, false],
+        "type": "bool",
+        "note": "是否打印训练信息"
+    },
+    "warm_start": {
+        "default": false,
+        "options": [true, false],
+        "type": "bool",
+        "note": "是否使用上一次训练的权重初始化"
+    },
+    "momentum": {
+        "default": 0.9,
+        "range": [0.0, 0.99],
+        "type": "float",
+        "note": "SGD动量系数（缓解局部最小）"
+    },
+    "nesterovs_momentum": {
+        "default": true,
+        "options": [true, false],
+        "type": "bool",
+        "note": "是否使用Nesterov动量"
+    },
+    "early_stopping": {
+        "default": false,
+        "options": [true, false],
+        "type": "bool",
+        "note": "是否早停（缓解过拟合，找全局最小）"
+    },
+    "validation_fraction": {
+        "default": 0.1,
+        "range": [0.05, 0.3],
+        "type": "float",
+        "note": "验证集比例（早停用）"
+    },
+    "beta_1": {
+        "default": 0.9,
+        "range": [0.8, 0.999],
+        "type": "float",
+        "note": "Adam一阶矩衰减系数"
+    },
+    "beta_2": {
+        "default": 0.999,
+        "range": [0.9, 0.9999],
+        "type": "float",
+        "note": "Adam二阶矩衰减系数"
+    },
+    "epsilon": {
+        "default": 1e-8,
+        "range": [1e-10, 1e-6],
+        "type": "float",
+        "note": "Adam数值稳定项"
+    },
+    "n_iter_no_change": {
+        "default": 10,
+        "range": [5, 20],
+        "type": "int",
+        "note": "早停无改进迭代次数阈值"
+    },
+    "use_ga_init": {
+        "default": false,
+        "options": [true, false],
+        "type": "bool",
+        "note": "是否使用遗传算法初始化权重（缓解局部最小）"
+    }
+}

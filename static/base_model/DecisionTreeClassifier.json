@@ -1,0 +1,75 @@
+{
+    "model": "DecisionTreeClassifier",
+    "criterion": {
+        "default": "gini",
+        "options": ["gini", "entropy", "log_loss"],
+        "type": "str",
+        "note": "不纯度计算准则"
+    },
+    "splitter": {
+        "default": "best",
+        "options": ["best", "random"],
+        "type": "str",
+        "note": "分割点选择策略"
+    },
+    "max_depth": {
+        "default": null,
+        "range": [1, 50],
+        "type": "int or null",
+        "note": "树的最大深度，None表示无限制"
+    },
+    "min_samples_split": {
+        "default": 2,
+        "range": [2, 100],
+        "type": "int",
+        "note": "分割内部节点所需的最小样本数"
+    },
+    "min_samples_leaf": {
+        "default": 1,
+        "range": [1, 50],
+        "type": "int",
+        "note": "叶节点所需的最小样本数"
+    },
+    "min_weight_fraction_leaf": {
+        "default": 0.0,
+        "range": [0.0, 0.5],
+        "type": "float",
+        "note": "叶节点所需的最小权重占比"
+    },
+    "max_features": {
+        "default": null,
+        "options": ["sqrt", "log2", null],
+        "range": [1, 100],
+        "type": "int or str or null",
+        "note": "分割时考虑的最大特征数"
+    },
+    "random_state": {
+        "default": null,
+        "type": "int or null",
+        "note": "随机种子"
+    },
+    "max_leaf_nodes": {
+        "default": null,
+        "range": [2, 100],
+        "type": "int or null",
+        "note": "最大叶节点数"
+    },
+    "min_impurity_decrease": {
+        "default": 0.0,
+        "range": [0.0, 1.0],
+        "type": "float",
+        "note": "分割所需的最小不纯度减少量"
+    },
+    "class_weight": {
+        "default": null,
+        "options": ["balanced", null],
+        "type": "dict or str or null",
+        "note": "类别权重，'balanced'自动平衡"
+    },
+    "ccp_alpha": {
+        "default": 0.0,
+        "range": [0.0, 10.0],
+        "type": "float",
+        "note": "剪枝参数，值越大剪枝越厉害"
+    }
+}

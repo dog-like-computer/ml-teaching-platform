@@ -1,0 +1,8 @@
+{
+  "model": "SOM",
+  "map_size": {"default":[10,10],"type":"tuple"},
+  "learning_rate": {"default":0.1,"range":[0.01,0.5],"type":"float"},
+  "sigma": {"default":2.0,"range":[0.5,10.0],"type":"float"},
+  "max_iter": {"default":1000,"range":[200,5000],"type":"int"},
+  "random_state": {"default":null,"type":"int|null"}
+}

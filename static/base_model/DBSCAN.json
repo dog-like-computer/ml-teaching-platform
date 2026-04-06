@@ -1,0 +1,7 @@
+{
+    "model": "DBSCAN",
+    "eps": {"default":0.5,"range":[0.1,5.0],"type":"float"},
+    "min_samples": {"default":5,"range":[2,20],"type":"int"},
+    "metric": {"default":"euclidean","options":["euclidean","manhattan","cosine"],"type":"str"},
+    "random_state": {"default":null,"type":"int|null"}
+}

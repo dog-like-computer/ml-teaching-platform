@@ -1,0 +1,26 @@
+{
+    "model": "AdaBoostClassifier",
+    "n_estimators": {
+        "default": 50,
+        "range": [10, 200],
+        "type": "int",
+        "note": "弱学习器（决策树桩）的数量，越多效果越好但训练越慢"
+    },
+    "learning_rate": {
+        "default": 1.0,
+        "range": [0.1, 2.0],
+        "type": "float",
+        "note": "学习率（权重衰减），越小越稳定但需要更多学习器"
+    },
+    "algorithm": {
+        "default": "SAMME.R",
+        "options": ["SAMME.R", "SAMME"],
+        "type": "str",
+        "note": "AdaBoost算法：SAMME.R（使用概率估计）、SAMME（使用分类精度）"
+    },
+    "random_state": {
+        "default": null,
+        "type": "int or null",
+        "note": "随机种子"
+    }
+}

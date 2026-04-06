@@ -1,0 +1,57 @@
+{
+    "model": "SVR",
+    "C": {
+        "default": 1.0,
+        "range": [0.01, 100.0],
+        "type": "float",
+        "note": "软间隔正则化参数，C越小容错性越强（软间隔），C越大越接近硬间隔"
+    },
+    "kernel": {
+        "default": "rbf",
+        "options": ["linear", "rbf", "poly"],
+        "type": "str",
+        "note": "核函数类型：linear（线性核）、rbf（高斯核）、poly（多项式核）"
+    },
+    "degree": {
+        "default": 3,
+        "range": [2, 5],
+        "type": "int",
+        "note": "多项式核的次数（仅kernel='poly'时有效）"
+    },
+    "gamma": {
+        "default": "scale",
+        "options": ["scale", "auto"],
+        "range": [0.001, 10.0],
+        "type": "str or float",
+        "note": "RBF/多项式核的系数：scale=1/n_features，auto=1，也可手动指定浮点数"
+    },
+    "coef0": {
+        "default": 0.0,
+        "range": [0.0, 10.0],
+        "type": "float",
+        "note": "多项式核的常数项（仅kernel='poly'时有效）"
+    },
+    "epsilon": {
+        "default": 0.1,
+        "range": [0.01, 1.0],
+        "type": "float",
+        "note": "ε-不敏感损失参数，控制回归误差容忍范围"
+    },
+    "tol": {
+        "default": 0.001,
+        "range": [1e-6, 1e-2],
+        "type": "float",
+        "note": "SMO算法收敛阈值"
+    },
+    "max_iter": {
+        "default": 1000,
+        "range": [100, 5000],
+        "type": "int",
+        "note": "SMO算法最大迭代次数"
+    },
+    "random_state": {
+        "default": null,
+        "type": "int or null",
+        "note": "随机种子"
+    }
+}

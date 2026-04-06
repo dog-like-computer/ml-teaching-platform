@@ -1,0 +1,8 @@
+{
+    "model": "GaussianMixture",
+    "n_components": {"default":8,"range":[2,20],"type":"int"},
+    "covariance_type": {"default":"full","options":["full","diag","spherical"],"type":"str"},
+    "max_iter": {"default":100,"range":[50,500],"type":"int"},
+    "tol": {"default":1e-3,"range":[1e-6,1e-2],"type":"float"},
+    "random_state": {"default":null,"type":"int|null"}
+}

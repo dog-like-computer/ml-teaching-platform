@@ -1,0 +1,8 @@
+{
+    "model": "LVQ",
+    "n_prototypes": {"default":8,"range":[2,20],"type":"int"},
+    "learning_rate": {"default":0.01,"range":[0.001,0.1],"type":"float"},
+    "max_iter": {"default":300,"range":[50,1000],"type":"int"},
+    "metric": {"default":"euclidean","options":["euclidean","manhattan","cosine"],"type":"str"},
+    "random_state": {"default":null,"type":"int|null"}
+}

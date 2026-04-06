@@ -1,0 +1,26 @@
+{
+    "model": "AdaBoostRegressor",
+    "n_estimators": {
+        "default": 50,
+        "range": [10, 200],
+        "type": "int",
+        "note": "弱学习器（决策树桩）的数量，越多效果越好但训练越慢"
+    },
+    "learning_rate": {
+        "default": 1.0,
+        "range": [0.1, 2.0],
+        "type": "float",
+        "note": "学习率（权重衰减），越小越稳定但需要更多学习器"
+    },
+    "loss": {
+        "default": "linear",
+        "options": ["linear", "square", "exponential"],
+        "type": "str",
+        "note": "损失函数类型：linear（线性）、square（平方）、exponential（指数）"
+    },
+    "random_state": {
+        "default": null,
+        "type": "int or null",
+        "note": "随机种子"
+    }
+}

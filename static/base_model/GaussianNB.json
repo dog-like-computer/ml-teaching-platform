@@ -1,0 +1,14 @@
+{
+    "model": "GaussianNB",
+    "priors": {
+        "default": null,
+        "type": "array or null",
+        "note": "手动指定的类别先验概率，长度需与类别数一致；None则从训练数据中自动估计"
+    },
+    "var_smoothing": {
+        "default": 1e-9,
+        "range": [1e-12, 1e-6],
+        "type": "float",
+        "note": "方差平滑项，避免特征方差为0导致概率计算错误"
+    }
+}

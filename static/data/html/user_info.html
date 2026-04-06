@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="user.info.title">User Information Management</title>
+    <link rel="stylesheet" href="/static/css/user_info.css">
+</head>
+<body>
+    <div class="user-info-container">
+        <!-- Page header -->
+        <div class="page-header">
+            <h1 data-i18n="user.info.profile">User Profile</h1>
+            <div class="header-actions">
+                <div class="loading" id="loading" data-i18n="user.info.loading">Loading user information...</div>
+            </div>
+        </div>
+
+        <!-- User info display section (main content) -->
+        <div class="display-section" id="user-info-display">
+            <div class="avatar-container">
+                <img id="display-head-url" src="/static/user_pic/primary.jpg" alt="User Avatar">
+                <p class="avatar-tip" data-i18n="user.info.avatar.tip">Click to change avatar</p>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="label" data-i18n="user.info.id">User ID：</span>
+                    <span id="display-user-id" class="non-editable">--</span>
+                </div>
+                <div class="info-item">
+                    <span class="label" data-i18n="user.info.username">Username：</span>
+                    <span id="display-username" class="non-editable">--</span>
+                </div>
+                <div class="info-item">
+                    <span class="label" data-i18n="user.info.phone">Phone Number：</span>
+                    <span id="display-phone" class="non-editable">--</span>
+                </div>
+                <div class="info-item">
+                    <span class="label" data-i18n="user.info.identity">ID Card No.：</span>
+                    <span id="display-identity" class="non-editable">--</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- User info update section -->
+        <div class="update-section">
+            <h2 data-i18n="user.info.update">Update Information</h2>
+            <form id="update-user-form">
+                <!-- Hidden user ID (auto filled from initial load) -->
+                <input type="hidden" id="update-user-id">
+
+                <div class="form-group">
+                    <label for="update-username" data-i18n="user.info.username">Username：</label>
+                    <input type="text" id="update-username" placeholder="Optional, leave blank if not modified" data-i18n="user.info.username.placeholder">
+                </div>
+                <div class="form-group">
+                    <label for="update-phone" data-i18n="user.info.phone">Phone Number：</label>
+                    <input type="tel" id="update-phone" placeholder="Optional, leave blank if not modified" data-i18n="user.info.phone.placeholder">
+                </div>
+                <div class="form-group">
+                    <label for="update-password" data-i18n="user.info.password">New Password：</label>
+                    <input type="password" id="update-password" placeholder="Optional, leave blank if not modified" data-i18n="user.info.password.placeholder">
+                </div>
+                <div class="form-group">
+                    <label for="update-identity" data-i18n="user.info.identity">ID Card No.：</label>
+                    <input type="text" id="update-identity" placeholder="Optional, leave blank if not modified" data-i18n="user.info.identity.placeholder">
+                </div>
+                <div class="form-group">
+                    <input type="file" id="update-head" accept="image/*" style="display: none;">
+                </div>
+                <div class="form-group">
+                    <label for="verify-password" data-i18n="user.info.verify.password">Verify Password：</label>
+                    <input type="password" id="verify-password" placeholder="Required for verification" data-i18n="user.info.verify.password.placeholder">
+                </div>
+                <div class="btn-group">
+                    <button type="submit" id="update-btn" data-i18n="user.info.update.btn">Submit Update</button>
+                    <button type="reset" id="reset-btn" data-i18n="user.info.reset.btn">Reset Form</button>
+                    <button type="button" id="back-btn" class="back-button" data-i18n="user.info.back.btn">Back to Home</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Tips message section -->
+        <div class="tips" id="tips"></div>
+    </div>
+
+    <script src="/static/javascript/i18n.js"></script>
+    <script src="/static/javascript/user_info.js"></script>
+</body>
+</html>

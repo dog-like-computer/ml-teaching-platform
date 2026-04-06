@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="home.title">AI Model Training Platform</title>
+    <!-- External Resources -->
+    <link rel="shortcut icon" href="/static/system_pic/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/static/css/home.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo" data-i18n="home.title">AI Model Training Platform</div>
+        <div class="user-menu-container">
+            <button id="user-menu-btn" class="user-menu-btn">
+                <img id="user-avatar-small" class="user-avatar-small" src="" alt="User Avatar">
+                <span id="user-name-short">--</span>
+            </button>
+            <div id="user-dropdown" class="user-dropdown">
+                <div class="user-dropdown-info">
+                    <p><strong data-i18n="user.menu.id">User ID:</strong> <span id="dropdown-user-id">--</span></p>
+                    <p><strong data-i18n="user.menu.username">Username:</strong> <span id="dropdown-username">--</span></p>
+                    <p><strong data-i18n="user.menu.phone">Phone:</strong> <span id="dropdown-phone">--</span></p>
+                </div>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" id="update-info-btn" data-i18n="user.menu.update">Update Personal Info</button>
+                <button class="dropdown-item" id="logout-btn" data-i18n="user.menu.logout">Logout</button>
+                <button class="dropdown-item danger" id="delete-account-btn" data-i18n="user.menu.delete">Delete Account</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Module Navigation -->
+    <nav class="module-nav">
+        <button class="module-btn active" data-module="data" data-i18n="home.nav.data">Data Module</button>
+        <button class="module-btn" data-module="train" data-i18n="home.nav.train">Training Module</button>
+        <button class="module-btn" data-module="model" data-i18n="home.nav.model">Model Module</button>
+        <button class="module-btn" data-module="predict" data-i18n="home.nav.predict">Prediction Module</button>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Data Module -->
+        <div id="data-module" class="module-content active">
+            <div class="card">
+                <h2 data-i18n="home.data.upload">Data Management</h2>
+                <div class="upload-section">
+                    <h3 data-i18n="home.data.upload">Upload Dataset</h3>
+                    <form id="upload-form">
+                        <div class="form-group">
+                            <label for="data-type" data-i18n="home.data.type">Data Type</label>
+                            <select id="data-type" name="types">
+                                <option value="classification" data-i18n="home.data.type.classification">Classification</option>
+                                <option value="regression" data-i18n="home.data.type.regression">Regression</option>
+                                <option value="clustering" data-i18n="home.data.type.clustering">Clustering</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="data-file" data-i18n="home.data.select">Select File</label>
+                            <input type="file" id="data-file" name="file" accept=".csv,.xlsx,.xls">
+                        </div>
+                        <button type="submit" class="btn primary" data-i18n="home.data.btn">Upload Data</button>
+                    </form>
+                    <div id="upload-result"></div>
+                </div>
+                <div class="dataset-list-section">
+                    <h3 data-i18n="home.data.list">Your Datasets</h3>
+                    <div id="dataset-list" class="dataset-list" data-i18n="home.data.loading">Loading datasets...</div>
+                    <div id="dataset-actions-result"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Training Module (Optimized XY Column Select) -->
+        <div id="train-module" class="module-content">
+            <div class="card">
+                <h2 data-i18n="home.train.title">Model Training</h2>
+                <form id="train-form">
+                    <!-- Custom Model Name -->
+                    <div class="form-group">
+                        <label for="model-name" data-i18n="home.train.name">Custom Model Name</label>
+                        <input type="text" id="model-name" name="model_name" placeholder="Enter a name for your model (required)" required data-i18n="home.train.name.placeholder">
+                        <small data-i18n="home.train.name.hint">Use this name to identify your trained model later</small>
+                    </div>
+
+                    <!-- Dataset Selection -->
+                    <div class="form-group">
+                        <label for="train-dataset" data-i18n="home.train.dataset">Select Dataset</label>
+                        <select id="train-dataset" name="dataset_id">
+                            <option value="" data-i18n="home.data.loading.option">-- Loading Datasets --</option>
+                        </select>
+                    </div>
+
+                    <!-- Training Method -->
+                    <div class="form-group">
+                        <label for="train-way" data-i18n="home.train.method">Training Method</label>
+                        <select id="train-way" name="train_way">
+                            <option value="" data-i18n="home.train.method.select">-- Select Training Method --</option>
+                            <option value="classification" data-i18n="home.train.method.classification">Classification</option>
+                            <option value="regression" data-i18n="home.train.method.regression">Regression</option>
+                            <option value="clustering" data-i18n="home.train.method.clustering">Clustering</option>
+                        </select>
+                    </div>
+
+                    <!-- XY Column Configuration (Dropdown Version) -->
+                    <div class="form-group" style="display: none;">
+                        <label data-i18n="home.train.columns">Column Configuration (X Features & Y Target)</label>
+                        <button type="button" id="load-columns-btn" class="btn secondary small" disabled data-i18n="home.train.columns.load">Load Columns from Dataset</button>
+                        <div id="columns-container" style="margin-top: 10px; display: none;">
+                            <!-- X Column Area -->
+                            <div class="xy-row">
+                                <span class="xy-label" data-i18n="home.train.columns.x">X:</span>
+                                <div class="tag-group" id="x-tag-group"></div>
+                                <div class="xy-select-wrapper">
+                                    <select id="x-column-select" class="xy-select">
+                                        <option value="" data-i18n="home.train.columns.select">-- Select Column --</option>
+                                    </select>
+                                    <button type="button" id="add-x-btn" class="btn secondary small add-btn" data-i18n="home.train.columns.add">+ add</button>
+                                </div>
+                            </div>
+
+                            <!-- Y Column Area -->
+                            <div class="xy-row">
+                                <span class="xy-label" data-i18n="home.train.columns.y">y:</span>
+                                <div class="tag-group" id="y-tag-group"></div>
+                                <div class="xy-select-wrapper">
+                                    <select id="y-column-select" class="xy-select">
+                                        <option value="" data-i18n="home.train.columns.select">-- Select Column --</option>
+                                    </select>
+                                    <button type="button" id="add-y-btn" class="btn secondary small add-btn" data-i18n="home.train.columns.add">+ add</button>
+                                </div>
+                            </div>
+
+                            <!-- Available Columns Hint -->
+                            <div class="columns-hint">
+                                <span data-i18n="home.train.columns.available">Available columns: </span><span id="available-columns">--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Model Selection -->
+                    <div class="form-group">
+                        <label for="train-model" data-i18n="home.train.model">Training Model</label>
+                        <select id="train-model" name="train_model" disabled>
+                            <option value="" data-i18n="home.train.model.select">-- Select First --</option>
+                        </select>
+                    </div>
+
+                    <!-- Hyperparameters -->
+                    <div class="form-group" id="hyperparams-container" style="display: none;">
+                        <h4 data-i18n="home.train.hyperparams">Model Hyperparameters</h4>
+                        <div id="hyperparams-form" class="hyperparams-grid"></div>
+                    </div>
+
+                    <button type="submit" class="btn primary" data-i18n="home.train.btn">Start Training</button>
+                </form>
+                <div id="train-result"></div>
+            </div>
+        </div>
+
+        <!-- Model Module -->
+        <div id="model-module" class="module-content">
+            <div class="card">
+                <h2 data-i18n="home.model.title">Model Management</h2>
+
+                <!-- Model Statistics -->
+                <div id="model-stats" class="model-stats">
+                    <div class="stat-card">
+                        <span class="stat-label" data-i18n="home.model.stats.total">Total Models</span>
+                        <span id="total-models" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label" data-i18n="home.model.stats.success">Successfully Trained</span>
+                        <span id="success-models" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-label" data-i18n="home.model.stats.failed">Failed Training</span>
+                        <span id="failed-models" class="stat-value">0</span>
+                    </div>
+                </div>
+
+                <!-- Model List -->
+                <h3 data-i18n="home.model.list">Your Trained Models</h3>
+                <div id="model-list" class="model-list" data-i18n="home.model.loading">Loading model list...</div>
+                <div id="model-actions-result"></div>
+            </div>
+        </div>
+
+        <!-- Prediction Module -->
+        <div id="predict-module" class="module-content">
+            <div class="card">
+                <h2 data-i18n="home.predict.title">Model Prediction</h2>
+                <div class="form-group">
+                    <label for="predict-model" data-i18n="home.predict.select">Select Trained Model</label>
+                    <select id="predict-model" name="model_id">
+                        <option value="" data-i18n="home.predict.select.none">-- No Models Available --</option>
+                    </select>
+                </div>
+                <div id="model-info" class="model-info" style="display: none;">
+                    <h3 data-i18n="home.predict.info">Model Information</h3>
+                    <div class="model-details-grid">
+                        <div class="detail-item">
+                            <label data-i18n="home.predict.info.name">Model Name:</label>
+                            <span id="model-name-display">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <label data-i18n="home.predict.info.dataset">Dataset:</label>
+                            <span id="model-dataset-display">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <label data-i18n="home.predict.info.type">Type:</label>
+                            <span id="model-type-display">--</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="input-form-container" class="input-form-container" style="display: none;">
+                    <h3 data-i18n="home.predict.input">Input Features</h3>
+                    <div id="input-form" class="input-form-grid"></div>
+                </div>
+                <button id="predict-btn" class="btn primary" disabled data-i18n="home.predict.btn">Run Prediction</button>
+                <div id="predict-result"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="delete-dataset-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-i18n="modal.delete.title">Delete Dataset</h3>
+                <button class="modal-close" id="delete-modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p data-i18n="modal.delete.confirm">Are you sure you want to delete this dataset? This action cannot be undone.</p>
+                <input type="hidden" id="delete-data-id">
+                <div class="form-group">
+                    <label for="delete-password" data-i18n="modal.delete.password">Enter your password to confirm:</label>
+                    <input type="password" id="delete-password" placeholder="Your password" required data-i18n="modal.delete.password.placeholder">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" id="cancel-delete" data-i18n="modal.delete.cancel">Cancel</button>
+                <button class="btn danger" id="confirm-delete" data-i18n="modal.delete.confirm">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="update-sheet-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-i18n="modal.update.title">Update Sheet Name</h3>
+                <button class="modal-close" id="update-modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="update-data-id">
+                <input type="hidden" id="update-saving">
+                <div class="form-group">
+                    <label for="new-sheet-name" data-i18n="modal.update.name">New Sheet Name:</label>
+                    <input type="text" id="new-sheet-name" placeholder="Enter new sheet name" required data-i18n="modal.update.name.placeholder">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" id="cancel-update" data-i18n="modal.update.cancel">Cancel</button>
+                <button class="btn primary" id="confirm-update" data-i18n="modal.update.confirm">Update</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Update Token Modal -->
+    <div id="update-token-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-i18n="modal.token.title">Update Token</h3>
+                <button class="modal-close" id="update-token-modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="update-token-model-id">
+                <div class="form-group">
+                    <label for="new-token" data-i18n="modal.token.new">New Token:</label>
+                    <input type="text" id="new-token" placeholder="Enter new token" required data-i18n="modal.token.new.placeholder">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" id="cancel-update-token" data-i18n="modal.token.cancel">Cancel</button>
+                <button class="btn primary" id="confirm-update-token" data-i18n="modal.token.confirm">Update</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Model Modals -->
+    <div id="delete-model-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-i18n="modal.delete.model.title">Delete Model</h3>
+                <button class="modal-close" id="delete-model-modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p data-i18n="modal.delete.model.confirm">Are you sure you want to delete this model? This action cannot be undone.</p>
+                <input type="hidden" id="delete-model-id">
+                <div class="form-group">
+                    <label for="delete-model-password" data-i18n="modal.delete.model.password">Enter your password to confirm:</label>
+                    <input type="password" id="delete-model-password" placeholder="Your password" required data-i18n="modal.delete.model.password.placeholder">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" id="cancel-delete-model" data-i18n="modal.delete.model.cancel">Cancel</button>
+                <button class="btn danger" id="confirm-delete-model" data-i18n="modal.delete.model.confirm">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="rename-model-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" data-i18n="modal.rename.model.title">Rename Model</h3>
+                <button class="modal-close" id="rename-model-modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="rename-model-id">
+                <div class="form-group">
+                    <label for="new-model-name" data-i18n="modal.rename.model.name">New Model Name:</label>
+                    <input type="text" id="new-model-name" placeholder="Enter new model name" required data-i18n="modal.rename.model.name.placeholder">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary" id="cancel-rename-model" data-i18n="modal.rename.model.cancel">Cancel</button>
+                <button class="btn primary" id="confirm-rename-model" data-i18n="modal.rename.model.confirm">Update</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JS -->
+    <script src="/static/javascript/i18n.js"></script>
+    <script src="/static/javascript/home.js"></script>
+</body>
+</html>

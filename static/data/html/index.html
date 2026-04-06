@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="login.title">Login & Register</title>
+    <link rel="shortcut icon" href="/static/system_pic/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/system_pic/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部logo/标题 -->
+        <div class="header">
+            <i class="fas fa-user-circle"></i>
+            <h2 data-i18n="login.title">User Authentication</h2>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="login" data-i18n="login.tab.login">Login</div>
+            <div class="tab" data-tab="register" data-i18n="login.tab.register">Register</div>
+        </div>
+
+        <div class="form-box active" id="login">
+            <div class="form-group">
+                <label for="login-id">
+                    <i class="fas fa-id-card"></i> <span data-i18n="login.form.id">User ID</span>
+                </label>
+                <input type="text" id="login-id" placeholder="Please enter your user ID" data-i18n="login.form.id.placeholder">
+            </div>
+            <div class="form-group">
+                <label for="login-password">
+                    <i class="fas fa-lock"></i> <span data-i18n="login.form.password">Password</span>
+                </label>
+                <input type="password" id="login-password" placeholder="Please enter your password" data-i18n="login.form.password.placeholder">
+            </div>
+            <div class="form-group">
+                <label>
+                    <i class="fas fa-shield-halved"></i> <span data-i18n="login.form.captcha">Captcha</span>
+                </label>
+                <div class="verify-group">
+                    <input type="text" id="login-verify" placeholder="Please enter captcha" data-i18n="login.form.captcha.placeholder">
+                    <img src="" alt="Captcha" class="verify-img" id="login-verify-img">
+                </div>
+            </div>
+            <!-- 新增找回/重置密码链接 -->
+            <div class="forgot-links">
+                <a href="/recover_account" class="link" data-i18n="login.links.recover">Recover Account</a>
+                <a href="/reset_password" class="link" data-i18n="login.links.reset">Reset Password</a>
+            </div>
+            <div class="error-msg" id="login-error"></div>
+            <button id="login-btn">
+                <i class="fas fa-sign-in-alt"></i> <span data-i18n="login.btn">Login</span>
+            </button>
+        </div>
+
+        <div class="form-box" id="register">
+            <div class="form-group">
+                <label for="reg-username">
+                    <i class="fas fa-user"></i> <span data-i18n="register.form.username">Username</span>
+                </label>
+                <input type="text" id="reg-username" placeholder="Please enter username" data-i18n="register.form.username.placeholder">
+            </div>
+            <div class="form-group">
+                <label for="reg-phone">
+                    <i class="fas fa-phone"></i> <span data-i18n="register.form.phone">Phone</span>
+                </label>
+                <input type="text" id="reg-phone" placeholder="Please enter 11-digit phone number" data-i18n="register.form.phone.placeholder">
+            </div>
+            <div class="form-group">
+                <label for="reg-password">
+                    <i class="fas fa-lock"></i> <span data-i18n="register.form.password">Password</span>
+                </label>
+                <input type="password" id="reg-password" placeholder="Please enter password" data-i18n="register.form.password.placeholder">
+                <div class="password-tip" id="pwd-tip"></div>
+            </div>
+            <div class="form-group">
+                <label for="reg-repassword">
+                    <i class="fas fa-lock-open"></i> <span data-i18n="register.form.repassword">Confirm Password</span>
+                </label>
+                <input type="password" id="reg-repassword" placeholder="Please confirm your password" data-i18n="register.form.repassword.placeholder">
+                <div class="error-msg" id="repwd-error"></div>
+            </div>
+            <div class="form-group">
+                <label>
+                    <i class="fas fa-shield-halved"></i> <span data-i18n="login.form.captcha">Captcha</span>
+                </label>
+                <div class="verify-group">
+                    <input type="text" id="reg-verify" placeholder="Please enter captcha" data-i18n="login.form.captcha.placeholder">
+                    <img src="" alt="Captcha" class="verify-img" id="reg-verify-img">
+                </div>
+            </div>
+            <div class="error-msg" id="reg-error"></div>
+            <button id="reg-btn">
+                <i class="fas fa-user-plus"></i> <span data-i18n="register.btn">Register</span>
+            </button>
+        </div>
+    </div>
+    <script src="/static/javascript/i18n.js"></script>
+    <script src="/static/javascript/index.js"></script>
+</body>
+</html>
